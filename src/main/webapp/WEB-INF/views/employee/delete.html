@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create customer</title>
+
+    <style>
+        input {
+            font-size: 22px;
+            display: block;
+            margin-bottom:20px;
+            height: 100%;
+            padding: 5px 10px;
+            background: none;
+            background-image: none;
+            border: 1px solid #a0b3b0;
+            color: #ffffff;
+            border-radius: 0;
+            transition: border-color .25s ease, box-shadow .25s ease;
+            margin-right: 5px;
+            margin-left: 5px;
+            width: 267px;
+            margin-top: 10px;
+        }
+
+        form {
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(19, 35, 47, 0.9);
+            box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+        }
+
+        body {
+            background: url(http://bit.ly/2gPLxZ4);
+            font-family: 'Titillium Web', sans-serif;
+            background-size: 100%;
+        }
+
+        h1.title {
+            text-align: center;
+            color: #ffffff;
+            font-weight: 300;
+            margin: 0 0 32px;
+        }
+
+        input:hover {
+            border: 1px solid #1f7ccb;
+        }
+        input#email {
+            width:573px!important;
+
+        }
+
+
+        input[type="submit"] {
+            width: 591px!important;
+            border: 0;
+            outline: none;
+            border-radius: 0;
+            padding: 15px 0;
+            font-size: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            background: #1ab188;
+            color: #ffffff;
+            transition: all 0.5s ease;
+            -webkit-appearance: none;
+            margin-top: 5px;
+            text-align: center;
+
+        }
+        .gg123 {
+            margin-left: 2px;
+        }
+        .max123{
+            margin-left: 2px;
+        }
+        input[type="submit"]:hover {
+            background: #299276;
+        }
+        .f12{
+            color: red;
+            font-size: 17px;
+            text-align: left;
+            margin-left: 6px;
+        }
+        input#avatar {
+            width: 571px;
+        }
+        span{
+            color: white;
+            margin-left: 5px;
+        }
+        a{
+            color: red;
+            margin-left: 9px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+<form th:action="@{/delete-employee}" th:object="${employee}" method="post" enctype="multipart/form-data">
+
+    <h1 class="title">Delete Employee</h1>
+    <td><input placeholder="ID*" type="hidden" th:field="*{id}"/></td>
+    <div class="maxDiv">
+
+        <div class="gg123">
+            <div class="g123"> <div class="image"><img width="100%" height="333px" th:src="@{'/img/' + ${employee.avatar}}"></div></div>
+        </div>
+        <table>
+            <tr>
+
+                <td><span>Name</span><input placeholder="Name*" type="text" th:field="*{name}"/></td>
+                <td><span>BirthDate</span><input placeholder="BirtDate*" type="date" th:field="*{birthDate}"/></td>
+            </tr>
+
+            <tr>
+                <td><span>Address</span><input placeholder="Address*" type="text" th:field="*{address}"/></td>
+                <td><span>Salary</span><input placeholder="Slary*" type="text" th:field="*{salary}"/></td>
+            </tr>
+
+
+        </table>
+
+        <div class="max123">
+            <div><input class="f12" type="submit" value="Delete Employee"></div>
+        </div>
+        <th:block th:if="${message}">
+            <p class="f12" th:text="${message}"></p>
+            <a  th:href="@{/employee}">Go to EmployeeList</a>
+        </th:block>
+
+    </div>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+        .container {
+            position: relative;
+            width: 50%;
+        }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .container:hover .image {
+            opacity: 0.3;
+        }
+
+        .container:hover .middle {
+            opacity: 1;
+        }
+
+        .text {
+            background-color: #3740386b;
+            color: white;
+            padding: 12px 32px;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+            font-weight: 800;
+            text-transform: capitalize;
+
+        }
+        .fl{
+            width: 30%;
+            margin-left: 98px;
+        }
+        .headshot {
+            margin: 20px;
+            box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            background: linear-gradient(to bottom right, #ff3cac, #562b7c, #2b86c5);
+            display:inline-block;
+            position: relative;
+            margin-bottom: 27px;
+        }
+        .headshot:hover {
+
+            z-index: 2;
+            transition: all 200ms ease-in;
+
+        }
+
+        figure {
+            width: 281px;
+            margin: 0;
+            padding: 0;
+            background: #3740386b;
+            overflow: hidden;
+        }
+        figure:hover+span {
+            bottom: -36px;
+            opacity: 1;
+        }
+
+
+        span.text2.fl {
+            z-index: -1;
+            display: block;
+            color: #444;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: center;
+            transition: .3s ease-in-out;
+            margin-left: 24%;
+            padding: 10px;
+
+        }
+        a{
+
+            padding: 15px 30px;
+            color: #2196f3;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 24px;
+            overflow: hidden;
+
+        }
+        a:hover{
+            color: #255784;
+            background: #2196f3;
+            box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+
+        }
+
+        .pagination.p1 {
+            text-align: center;
+            font-size: 24px;
+            color: red;
+            font-weight: bold;
+        }
+        a.ff:hover {
+            background: none!important;
+            box-shadow: none!important;
+            text-align: center;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            width: 100px;
+            margin-left: 32px;
+        }
+        input[type="submit"] {
+            background: #3b5998;
+            color: white;
+            padding: 9px;
+        }
+
+        input[type="text"] {
+            padding:10px
+        }
+        .text.a {
+            color: red;
+        }
+        .block-title {
+            font-family: UTMCafeta, tahoma;
+            font-size: 26px;
+            font-weight: 500;
+            color: #1477e2;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        span.block-ineer {
+            background: #fff;
+            z-index: 4;
+            position: relative;
+            padding: 0 20px;
+        }
+        h1.block-title:after {
+            position: absolute;
+            height: 2px;
+            background: #1477e2;
+            width: 100%;
+            left: 0;
+            content: "";
+            bottom: 14px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+
+<div>
+    <p style="text-align: center">
+        <a style="color: black" href="/create-employee"> Create New User ?</a>
+    </p>
+
+    <form th:action="@{/employee}">
+        <a class="ff">Search by first name:</a>
+        <input name="s" type="text"/>
+        <input type="submit" value="Search"/>
+    </form><br/>
+
+    <form onchange="this.submit()" th:action="@{/searchByDepartment}">
+        <a class="ff">Search by category</a>
+        <select name="search">
+            <option value=-1></option>
+            <option th:each="department :${departments}"
+                    th:selected="(${department.getId()}==${search})"
+                    th:text="${department.name}"
+                    th:value="${department.id}"></option>
+        </select>
+
+    </form>
+    <h1 class="block-title" style="text-align: center"><span class="block-ineer">Employee List</span></h1>
+
+        <th:block th:each="employees : ${employee}">
+
+            <div class="container fl headshot  ">
+                <div class="image"><img width="100%" height="333px" th:src="@{'/img/' + ${employees.avatar}}"></div>
+                <div class="middle">
+                    <!--<div class="text" th:text="${employees.name}"></div>
+                    <div class="text" th:text="${employees.address}"></div>
+                    <div class="text" th:text="${employees.birthDate}"></div>
+                    <div class="text" th:text="${employees.salary}"></div>
+                    <div class="text" th:text="${employees.department}"></div>-->
+                    <div class="text"><a th:href="@{/view/__${employees.id}__ }">Click me</a> </div>
+                    <table>
+                        <tr>
+                            <td><figure> <span class="text2 fl" ><a th:href="@{/edit-employee/__${employees.id}__ }">Edit</a></span></figure></td>
+                            <td><figure><span class="text2 fl" ><a th:href="@{/delete-employee/__${employees.id}__ }">Delete</a></span></figure></td>
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div class="text " th:text="${employees.name}"></div>
+                <div class="text a " th:text="${employees.department.name}"></div>
+              </div>
+
+
+
+          </th:block>
+
+
+  </div>
+  <div class="pagination p1">
+      <a th:href="@{'/employee'(page = ${employee.number - 1})}" th:if="${employee.hasPrevious()}">Previous</a>
+      <span th:text="${employee.number+1}"></span>/<span th:text="${employee.totalPages}"></span>
+      <a th:href="@{'/employee'(page = ${employee.number + 1})}" th:if="${employee.hasNext()}">Next</a>
+  </div>
+  </body>
+  </html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+        .container {
+            position: relative;
+            width: 50%;
+        }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+
+
+
+
+
+        .text {
+
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+            font-weight: 800;
+            text-transform: capitalize;
+            border-left: 3px white dotted;
+            margin-left: -3px;
+
+        }
+        .fl{
+            float: left;
+            width: 30%;
+            margin-left: 98px;
+        }
+        .headshot {
+            flex-shrink: 0;
+            margin: 20px;
+            box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            background: linear-gradient(to bottom right, #ff3cac, #562b7c, #2b86c5);
+            display:inline-block;
+            position: relative;
+            width: 100%;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        td{
+            color: white;
+            font-size: 21px;
+            border-bottom: 3px white dotted;
+            padding-right: 32px;
+        }
+
+        .text1 {
+            color: #ffed09;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 30px;
+            font-family: monospace;
+            font-weight: 800;
+            text-transform: capitalize;
+            border-left: 3px white dotted;
+            margin-left: -3px;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .full.clearfix {
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+
+        body {
+            background: url(http://bit.ly/2gPLxZ4);
+            background-size: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div class="full clearfix">
+ <h1 style="text-align: center">VIEW EMPLOYEE</h1>
+
+
+    <th:block th:each="employees : ${employee}">
+
+        <div class="container fl headshot  ">
+            <div class="image"><img width="100%" height="333px" th:src="@{'/img/' + ${employees.avatar}}"></div>
+            <table>
+
+                <tr>
+                   <td>Name</td>
+                    <td><div class="text" th:text="${employees.name}"></div></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><div class="text" th:text="${employees.address}"></div></td>
+                </tr>
+                <tr>
+                    <td>BirthDate</td>
+                    <td><div class="text" th:text="${employees.birthDate}"></div></td>
+                </tr>
+                <tr>
+                    <td>Salary</td>
+                    <td><div class="text1" th:text="${employees.salary}"></div></td>
+                </tr>
+                <tr>
+                    <td>Department</td>
+                    <td><div class="text" th:text="${employees.department.name}"></div></td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+        <a  style="color: red;margin-left: 20px;" href="/employee">Back to employee list</a>
+
+
+    </th:block>
+
+
+</div>
+</div>
+</body>
+</html>
